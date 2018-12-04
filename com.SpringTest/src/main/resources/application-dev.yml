@@ -20,4 +20,22 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       useGlobalDataSourceStat: true
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true   
+
+#pageHepper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count
+  
+mapper:
+  plugin:  tk.mybatis.mapper.generator.MapperPlugin
+  mappers:  tk.mybatis.mapper.common.Mapper
+  not-empty: false
+  identity: MYSQL       
    
