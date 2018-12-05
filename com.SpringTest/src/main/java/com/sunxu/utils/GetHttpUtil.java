@@ -39,10 +39,12 @@ public class GetHttpUtil {
 				logger.info("onResponse: " + str);
 				JSONObject jsonObject = JSONObject.parseObject(str);
 				DataSource dataSource = JSONObject.toJavaObject(jsonObject, DataSource.class);
-				int publishTime = jsonObject.getIntValue("publishTime");
-				int currenttime = jsonObject.getIntValue("currenttime");
+				int publishTime = jsonObject.getInteger("publish_time");
+				int currentTime = jsonObject.getInteger("currentTime");
+				int nextTime = jsonObject.getInteger("nextTime");
 				dataSource.setPublishTime(DataUtils.getInstance().TimestampToDate(publishTime));
-				dataSource.setCurrenttime(DataUtils.getInstance().TimestampToDate(currenttime));
+				dataSource.setCurrenttime(DataUtils.getInstance().TimestampToDate(currentTime));
+				dataSource.setNexttime(DataUtils.getInstance().TimestampToDate(nextTime));
 				dataSource.setCreatetime(new Date());
 				dataSourceMapper.insert(dataSource);
 				logger.info("成功");
