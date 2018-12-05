@@ -21,7 +21,7 @@ public class GetDataSourceScheduled {
 	@Autowired
 	private DataSourceMapper dataSourceMapper;
 
-	@Scheduled(fixedRate = 1000 * 60)
+	@Scheduled(cron="0 0/1 * * * ?")
 	public void getDataSourceScheduled() {
 		try {
 			dataSourceService.getDataSource(dataSourceMapper);
