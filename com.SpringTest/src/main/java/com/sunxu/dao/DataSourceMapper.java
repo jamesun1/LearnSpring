@@ -2,16 +2,7 @@ package com.sunxu.dao;
 
 import com.sunxu.entity.DataSource;
 
-public interface DataSourceMapper {
-    int deleteByPrimaryKey(Long id);
+import tk.mybatis.mapper.common.Mapper;
 
-    int insert(DataSource record);
-
-    int insertSelective(DataSource record);
-
-    DataSource selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(DataSource record);
-
-    int updateByPrimaryKey(DataSource record);
+public interface DataSourceMapper extends Mapper<DataSource> {
 }
