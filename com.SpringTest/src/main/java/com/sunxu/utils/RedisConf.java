@@ -2,10 +2,10 @@ package com.sunxu.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import okhttp3.OkHttpClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -23,5 +23,11 @@ public class RedisConf {
 		logger.info("redis注入成功");
 		Jedis jedis = pool.getResource();
 		return jedis;
+	}
+
+	@Bean
+	public OkHttpClient openOkHttpClient() {
+		OkHttpClient okHttpClient = new OkHttpClient();
+		return okHttpClient;
 	}
 }
