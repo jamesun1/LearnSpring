@@ -1,5 +1,6 @@
 package com.sunxu.service.imp;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,13 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sunxu.dao.MenuMapper;
 import com.sunxu.dao.UserInfoMapper;
+import com.sunxu.entity.Menu;
 import com.sunxu.entity.UserInfo;
 import com.sunxu.service.LogInService;
 import com.sunxu.utils.ApiResult;
 import com.sunxu.utils.JedisUtils;
 import com.sunxu.utils.LogicException;
 import com.sunxu.utils.RequestUtils;
+import com.sunxu.vo.MenuVo;
 
 import redis.clients.jedis.Jedis;
 
@@ -25,6 +29,8 @@ public class LogInServiceImp implements LogInService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private UserInfoMapper userInfoMapper;
+	@Autowired
+	private MenuMapper menuMapper;
 
 	@Override
 	public ApiResult loginIndex(UserInfo userInfo) throws LogicException {
@@ -48,8 +54,8 @@ public class LogInServiceImp implements LogInService {
 	public ApiResult generateRoutes(HttpServletRequest request) throws LogicException {
 		try {
 			String userId = RequestUtils.getCurrentUserId(request);
-			
-			return null;
+			List<MenuVo> menuList = menuMapper.generateRoutes(userId);
+			return ApiResult.success(menuList);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			throw new LogicException(e.getMessage());

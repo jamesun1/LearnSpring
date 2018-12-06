@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunxu.dao.MenuMapper">
+	<select id="generateRoutes" resultMap="resultMap">
+		SELECT
+		mu.*,um.user_id
+		FROM
+		menu mu
+		LEFT
+		JOIN user_menu um ON mu.menu_id = um.menu_id
+		WHERE
+		um.user_id =
+		#{userId}
+		AND
+		parent_id IS NULL
+	</select>
+
+	<resultMap type="com.sunxu.vo.MenuVo" id="resultMap">
+		<result column="menu_id" property="menuId" />
+		<result column="user_id" property="userId" />
+		<collection property="menuList" ofType="com.sunxu.entity.Menu"
+			select="selectStadail" column="{menuId=menu_id,userId=user_id}" />
+	</resultMap>
+	<select id="selectStadail" parameterType="java.util.Map"
+		resultType="com.sunxu.entity.Menu">
+		SELECT
+		mu.*
+		FROM
+		menu mu
+		LEFT JOIN user_menu um ON mu.menu_id =
+		um.menu_id
+		WHERE
+		um.user_id = #{userId}
+		and parent_id = #{menuId}
+	</select>
 </mapper>

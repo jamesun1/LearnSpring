@@ -7,7 +7,8 @@ public class RequestUtils {
 	public static String getCurrentUserId(HttpServletRequest request) throws LogicException {
 		try {
 			String token = request.getHeader("X-Token");
-			return token;
+			String userId = JedisUtils.getValue(token);
+			return userId;
 		} catch (Exception e) {
 			throw new LogicException(e.getMessage());
 		}
