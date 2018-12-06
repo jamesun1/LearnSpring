@@ -1,4 +1,4 @@
-package com.sunxu.service.img;
+package com.sunxu.service.imp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
