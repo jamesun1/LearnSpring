@@ -5,7 +5,13 @@ import redis.clients.jedis.JedisPool;
 
 public class JedisUtils {
 
-	private static Jedis jedis = SpringContextUtil.getBean(Jedis.class);
+	private static JedisPool pool = SpringContextUtil.getBean(JedisPool.class);
+
+	private static Jedis jedis;
+
+	public static Jedis getJedis() {
+		return pool.getResource();
+	}
 
 	/**
 	 * 传入对象最为键值对
@@ -15,6 +21,7 @@ public class JedisUtils {
 	 */
 	public static void append(byte[] key, Object value) {
 		byte[] b = SerializeUtil.serialize(value);
+		jedis = getJedis();
 		jedis.append(key, b);
 	}
 
@@ -25,11 +32,19 @@ public class JedisUtils {
 	 * @param value
 	 */
 	public static void append(String key, String value) {
+		jedis = getJedis();
 		jedis.append(key, value);
 	}
 
 	public static void set(String key, String value) {
+		jedis = getJedis();
 		jedis.set(key, value);
+	}
+
+	public static void set(String key, String value, int timeOut) {
+		jedis = getJedis();
+		jedis.set(key, value);
+		jedis.expire(key, timeOut);
 	}
 
 	/**
@@ -39,6 +54,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static String getValue(String key) {
+		jedis = getJedis();
 		String value = jedis.get(key);
 		return value;
 	}
@@ -50,6 +66,7 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static Object getValue(byte[] key) {
+		jedis = getJedis();
 		byte[] b = jedis.get(key);
 		Object o = SerializeUtil.unserialize(b);
 		return o;
@@ -61,6 +78,7 @@ public class JedisUtils {
 	 * @param key
 	 */
 	public static void remove(String key) {
+		jedis = getJedis();
 		jedis.del(key);
 	}
 
@@ -70,6 +88,7 @@ public class JedisUtils {
 	 * @param key
 	 */
 	public static void remove(byte[] key) {
+		jedis = getJedis();
 		jedis.del(key);
 	}
 }

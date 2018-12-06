@@ -45,6 +45,13 @@ public class ApiResult {
 		this.message = message;
 	}
 
+	public ApiResult(int code, Object object) {
+		super();
+		this.code = code;
+		this.message = "操作成功";
+		this.data = object;
+	}
+
 	public static ApiResult success(String message, Object object) {
 		ApiResult apiResult = new ApiResult(200, message, object);
 		return apiResult;
@@ -52,6 +59,11 @@ public class ApiResult {
 
 	public static ApiResult success() {
 		ApiResult apiResult = new ApiResult(200, "操作成功");
+		return apiResult;
+	}
+
+	public static ApiResult success(Object object) {
+		ApiResult apiResult = new ApiResult(200, object);
 		return apiResult;
 	}
 

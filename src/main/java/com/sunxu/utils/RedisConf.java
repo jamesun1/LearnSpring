@@ -15,14 +15,13 @@ public class RedisConf {
 	private Logger logger = LoggerFactory.getLogger(RedisConf.class);
 
 	@Bean
-	public Jedis openJedis() {
+	public JedisPool openJedis() {
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		// 设置最大10个连接
 		jedisPoolConfig.setMaxTotal(10);
 		JedisPool pool = new JedisPool(jedisPoolConfig, "119.29.108.164", 6379, 2000, "123456");
 		logger.info("redis注入成功");
-		Jedis jedis = pool.getResource();
-		return jedis;
+		return pool;
 	}
 
 	@Bean
