@@ -1,5 +1,7 @@
 package com.sunxu.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,17 @@ public class LogInControlelr {
 	public ApiResult loginIndex(@RequestBody UserInfo userInfo) {
 		try {
 			return logInService.loginIndex(userInfo);
+		} catch (LogicException e) {
+			return ApiResult.fail(e.getMessage());
+		} catch (Exception e) {
+			return ApiResult.fail(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "generateRoutes", method = { RequestMethod.GET })
+	public ApiResult generateRoutes(HttpServletRequest request) {
+		try {
+			return logInService.generateRoutes(request);
 		} catch (LogicException e) {
 			return ApiResult.fail(e.getMessage());
 		} catch (Exception e) {
