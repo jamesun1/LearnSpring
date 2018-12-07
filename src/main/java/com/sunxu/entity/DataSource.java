@@ -35,6 +35,56 @@ public class DataSource implements Serializable {
 	private Date currenttime;
 
 	private Date createtime;
+	
+	private String first;
+	
+	private String second;
+	
+	private String third;
+	
+	private String forth;
+	
+	private String fifth;
+
+	public String getFirst() {
+		return first;
+	}
+
+	public void setFirst(String first) {
+		this.first = first;
+	}
+
+	public String getSecond() {
+		return second;
+	}
+
+	public void setSecond(String second) {
+		this.second = second;
+	}
+
+	public String getThird() {
+		return third;
+	}
+
+	public void setThird(String third) {
+		this.third = third;
+	}
+
+	public String getForth() {
+		return forth;
+	}
+
+	public void setForth(String forth) {
+		this.forth = forth;
+	}
+
+	public String getFifth() {
+		return fifth;
+	}
+
+	public void setFifth(String fifth) {
+		this.fifth = fifth;
+	}
 
 	private static final long serialVersionUID = 1L;
 

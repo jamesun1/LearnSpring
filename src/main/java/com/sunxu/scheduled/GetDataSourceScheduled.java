@@ -20,13 +20,13 @@ public class GetDataSourceScheduled {
 	@Autowired
 	private DataSourceMapper dataSourceMapper;
 
-//	@Scheduled(cron = "0 0/1 * * * ?")
-//	public void getDataSourceScheduled() {
-//		try {
-//			dataSourceService.getDataSource(dataSourceMapper);
-//		} catch (LogicException e) {
-//			log.info("当前时间" + e.toString());
-//			e.printStackTrace();
-//		}
-//	}
+	@Scheduled(cron = "0 0/1 * * * ?")
+	public void getDataSourceScheduled() {
+		try {
+			dataSourceService.getDataSource(dataSourceMapper);
+		} catch (LogicException e) {
+			log.info("当前时间" + e.toString());
+			e.printStackTrace();
+		}
+	}
 }
