@@ -10,6 +10,7 @@ import com.sunxu.entity.UserInfo;
 import com.sunxu.service.DataSourceService;
 import com.sunxu.utils.ApiResult;
 import com.sunxu.utils.LogicException;
+import com.sunxu.vo.DataSourceVo;
 
 @RestController
 @RequestMapping("dataSource")
@@ -18,10 +19,10 @@ public class DataSourceController {
 	@Autowired
 	private DataSourceService dataSourceService;
 	
-	@RequestMapping(value = "getDataSource", method = { RequestMethod.GET })
-	public ApiResult getDataSource(String number) {
+	@RequestMapping(value = "getDataSource", method = { RequestMethod.POST })
+	public ApiResult getDataSource(@RequestBody DataSourceVo dataSourceVo) {
 		try {
-			return dataSourceService.getDataSource(number);
+			return dataSourceService.getDataSource(dataSourceVo);
 		} catch (LogicException e) {
 			return ApiResult.fail(e.getMessage());
 		} catch (Exception e) {

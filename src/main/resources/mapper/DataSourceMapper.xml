@@ -19,7 +19,8 @@
 		result.issue,
 		result.`first`
 		FROM
-		( SELECT * FROM data_source ORDER BY createTime DESC LIMIT 0, 20 )
+		( SELECT * FROM data_source ORDER BY createTime DESC
+		LIMIT 0, ${issue} )
 		result
 		ORDER BY result.issue
 	</select>

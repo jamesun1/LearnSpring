@@ -13,5 +13,5 @@ public interface DataSourceMapper extends Mapper<DataSource> {
 
 	void insertDataResult(List<DataResult> dataResult);
 
-	List<DataSource> getDataSource();
+	List<DataSource> getDataSource(@Param("issue")String issue);
 }

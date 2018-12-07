@@ -14,6 +14,7 @@ import com.sunxu.service.DataSourceService;
 import com.sunxu.utils.ApiResult;
 import com.sunxu.utils.GetHttpUtil;
 import com.sunxu.utils.LogicException;
+import com.sunxu.vo.DataSourceVo;
 
 @Service
 public class DataSourceServiceImp implements DataSourceService {
@@ -36,10 +37,12 @@ public class DataSourceServiceImp implements DataSourceService {
 	}
 
 	@Override
-	public ApiResult getDataSource(String number) throws LogicException {
+	public ApiResult getDataSource(DataSourceVo dataSourceVo) throws LogicException {
 		try {
 			int count = 0;
-			List<DataSource> dataSourceList = dataSourceMapper.getDataSource();
+			String number = dataSourceVo.getNumber();
+			String issueNum = dataSourceVo.getIssue();
+			List<DataSource> dataSourceList = dataSourceMapper.getDataSource(issueNum);
 			List<List<String>> dataList = new ArrayList<>();
 			for (DataSource item : dataSourceList) {
 				List<String> data = new ArrayList<>();
