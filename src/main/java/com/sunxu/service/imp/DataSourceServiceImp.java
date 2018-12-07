@@ -40,6 +40,7 @@ public class DataSourceServiceImp implements DataSourceService {
 	public ApiResult getDataSource(DataSourceVo dataSourceVo) throws LogicException {
 		try {
 			int count = 0;
+			double win = 0;
 			String number = dataSourceVo.getNumber();
 			String issueNum = dataSourceVo.getIssue();
 			List<DataSource> dataSourceList = dataSourceMapper.getDataSource(issueNum);
@@ -50,6 +51,7 @@ public class DataSourceServiceImp implements DataSourceService {
 				String first = item.getFirst();
 				if (first.equals(number)) {
 					count++;
+					win++;
 				} else {
 					count--;
 				}
@@ -59,7 +61,13 @@ public class DataSourceServiceImp implements DataSourceService {
 				}
 				dataList.add(data);
 			}
-			return ApiResult.success(dataList);
+
+			double winningRate = win / Double.valueOf(issueNum)*100;
+
+			dataSourceVo.setWinningRate(winningRate);
+			dataSourceVo.setDataList(dataList);
+
+			return ApiResult.success(dataSourceVo);
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
 			throw new LogicException("查询数据报错");

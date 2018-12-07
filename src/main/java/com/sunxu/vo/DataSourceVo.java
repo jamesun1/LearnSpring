@@ -1,5 +1,7 @@
 package com.sunxu.vo;
 
+import java.util.List;
+
 import com.sunxu.entity.DataSource;
 
 public class DataSourceVo extends DataSource {
@@ -10,6 +12,26 @@ public class DataSourceVo extends DataSource {
 	private String number;
 
 	private String issue;
+
+	private List<List<String>> dataList;
+
+	private Double winningRate;
+
+	public Double getWinningRate() {
+		return winningRate;
+	}
+
+	public void setWinningRate(Double winningRate) {
+		this.winningRate = winningRate;
+	}
+
+	public List<List<String>> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<List<String>> dataList) {
+		this.dataList = dataList;
+	}
 
 	public String getDigit() {
 		return digit;
