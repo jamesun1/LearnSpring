@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunxu.dao.DataSourceMapper;
+import com.sunxu.dao.DataSourceProMapper;
 import com.sunxu.entity.DataSource;
 import com.sunxu.service.DataSourceService;
 import com.sunxu.utils.ApiResult;
@@ -24,10 +25,10 @@ public class DataSourceServiceImp implements DataSourceService {
 	private DataSourceMapper dataSourceMapper;
 
 	@Override
-	public void getDataSource(DataSourceMapper dataSourceMapper) throws LogicException {
+	public void getDataSource(DataSourceProMapper dataSourceProMapper) throws LogicException {
 		try {
 			GetHttpUtil getHttpUtil = new GetHttpUtil();
-			getHttpUtil.getHttpUtil(dataSourceMapper);
+			getHttpUtil.getHttpUtil(dataSourceProMapper);
 			logger.info("调用成功");
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
@@ -62,7 +63,7 @@ public class DataSourceServiceImp implements DataSourceService {
 				dataList.add(data);
 			}
 
-			double winningRate = win / Double.valueOf(issueNum)*100;
+			double winningRate = win / Double.valueOf(issueNum) * 100;
 
 			dataSourceVo.setWinningRate(winningRate);
 			dataSourceVo.setDataList(dataList);
