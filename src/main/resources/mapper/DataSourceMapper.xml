@@ -19,9 +19,18 @@
 		result.issue,
 		result.`first`
 		FROM
-		( SELECT * FROM data_source ORDER BY createTime DESC
-		LIMIT 0, ${issue} )
-		result
-		ORDER BY result.issue
+		( SELECT * FROM data_source_pro ORDER BY `timestamp`
+		DESC LIMIT 0,
+		${issue} ) result
+		ORDER BY
+		result.issue
+	</select>
+	<select id="getMaxContinue" resultType="com.sunxu.vo.DataSourceVo">
+		call
+		getContinuousDataSource(#{str},${issue})
+	</select>
+	<select id="getNoMaxContinue" resultType="com.sunxu.vo.DataSourceVo">
+		call
+		getNotContinuousDataSource(#{str},${issue})
 	</select>
 </mapper>

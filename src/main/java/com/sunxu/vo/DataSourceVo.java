@@ -9,13 +9,53 @@ public class DataSourceVo extends DataSource {
 
 	private String digit;
 
-	private String number;
+	private String[] number;
 
 	private String issue;
 
 	private List<List<String>> dataList;
 
 	private Double winningRate;
+	
+	private String times;
+	
+	private String maxContinue;
+	
+	private String maxNoContinue;
+	
+	private String currentNoContinue;
+
+	public String getMaxContinue() {
+		return maxContinue;
+	}
+
+	public void setMaxContinue(String maxContinue) {
+		this.maxContinue = maxContinue;
+	}
+
+	public String getMaxNoContinue() {
+		return maxNoContinue;
+	}
+
+	public void setMaxNoContinue(String maxNoContinue) {
+		this.maxNoContinue = maxNoContinue;
+	}
+
+	public String getCurrentNoContinue() {
+		return currentNoContinue;
+	}
+
+	public void setCurrentNoContinue(String currentNoContinue) {
+		this.currentNoContinue = currentNoContinue;
+	}
+
+	public String getTimes() {
+		return times;
+	}
+
+	public void setTimes(String times) {
+		this.times = times;
+	}
 
 	public Double getWinningRate() {
 		return winningRate;
@@ -40,12 +80,12 @@ public class DataSourceVo extends DataSource {
 	public void setDigit(String digit) {
 		this.digit = digit;
 	}
-
-	public String getNumber() {
+	
+	public String[] getNumber() {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(String[] number) {
 		this.number = number;
 	}
 
