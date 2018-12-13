@@ -74,11 +74,14 @@ public class DataSourceServiceImp implements DataSourceService {
 			String str = this.dataToString(number);
 
 			DataSourceVo dsv = new DataSourceVo();
-			dsv = dataSourceMapper.getMaxContinue(issueNum, str);
+			dsv = dataSourceMapper.getContinuousDataSource(issueNum, str);
 			dataSourceVo.setMaxContinue(dsv.getTimes());
 
-			dsv = dataSourceMapper.getNoMaxContinue(issueNum, str);
+			dsv = dataSourceMapper.getNotContinuousDataSource(issueNum, str);
 			dataSourceVo.setMaxNoContinue(dsv.getTimes());
+
+			dsv = dataSourceMapper.getCurrentNotContinuousDataSource(issueNum, str);
+			dataSourceVo.setCurrentNoContinue(dsv.getTimes());
 
 			return ApiResult.success(dataSourceVo);
 		} catch (Exception e) {

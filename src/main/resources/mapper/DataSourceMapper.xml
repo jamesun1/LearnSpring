@@ -25,12 +25,16 @@
 		ORDER BY
 		result.issue
 	</select>
-	<select id="getMaxContinue" resultType="com.sunxu.vo.DataSourceVo">
+	<select id="getContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
 		call
 		getContinuousDataSource(#{str},${issue})
 	</select>
-	<select id="getNoMaxContinue" resultType="com.sunxu.vo.DataSourceVo">
+	<select id="getNotContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
 		call
 		getNotContinuousDataSource(#{str},${issue})
+	</select>
+	<select id="getCurrentNotContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
+		call
+		getCurrentNotContinuousDataSource(#{str},${issue})
 	</select>
 </mapper>

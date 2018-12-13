@@ -16,7 +16,9 @@ public interface DataSourceMapper extends Mapper<DataSource> {
 
 	List<DataSource> getDataSource(@Param("issue") String issue);
 
-	DataSourceVo getMaxContinue(@Param("issue") String issueNum, @Param("str") String str);
+	DataSourceVo getContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
 
-	DataSourceVo getNoMaxContinue(@Param("issue") String issueNum, @Param("str") String str);
+	DataSourceVo getNotContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
+
+	DataSourceVo getCurrentNotContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
 }

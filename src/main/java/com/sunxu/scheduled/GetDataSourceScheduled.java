@@ -22,7 +22,6 @@ public class GetDataSourceScheduled {
 	private DataSourceService dataSourceService;
 	@Autowired
 	private DataSourceProMapper dataSourceProMapper;
-	
 
 	@Scheduled(cron = "0 0/1 * * * ?")
 	public void getDataSourceScheduled() {
