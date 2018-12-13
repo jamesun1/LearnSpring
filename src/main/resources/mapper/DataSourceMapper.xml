@@ -37,4 +37,14 @@
 		call
 		getCurrentNotContinuousDataSource(#{str},${issue})
 	</select>
+	<select id="getAllCurrentNotCon" resultMap="temp,temp,temp,temp,temp,temp,temp,temp,temp,temp">
+		call
+		getAllCurrentNotCon(${issue})
+	</select>
+	<resultMap type="java.lang.String" id="temp">
+		<!-- <result column="number" property="number" javaType="java.lang.String"
+			jdbcType="VARCHAR" /> -->
+		<result column="times" property="times" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+	</resultMap>
 </mapper>

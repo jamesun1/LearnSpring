@@ -21,4 +21,6 @@ public interface DataSourceMapper extends Mapper<DataSource> {
 	DataSourceVo getNotContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
 
 	DataSourceVo getCurrentNotContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
+
+	List<List<String>> getAllCurrentNotCon(@Param("issue")String issueNum);
 }

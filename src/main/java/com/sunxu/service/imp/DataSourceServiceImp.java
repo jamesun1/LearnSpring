@@ -83,6 +83,18 @@ public class DataSourceServiceImp implements DataSourceService {
 			dsv = dataSourceMapper.getCurrentNotContinuousDataSource(issueNum, str);
 			dataSourceVo.setCurrentNoContinue(dsv.getTimes());
 
+			List<List<String>> dataSourceVoList = dataSourceMapper.getAllCurrentNotCon(issueNum);
+			dataSourceVo.setZero(dataSourceVoList.get(0).get(0));
+			dataSourceVo.setOne(dataSourceVoList.get(1).get(0));
+			dataSourceVo.setTwo(dataSourceVoList.get(2).get(0));
+			dataSourceVo.setThree(dataSourceVoList.get(3).get(0));
+			dataSourceVo.setFour(dataSourceVoList.get(4).get(0));
+			dataSourceVo.setFive(dataSourceVoList.get(5).get(0));
+			dataSourceVo.setSix(dataSourceVoList.get(6).get(0));
+			dataSourceVo.setSeven(dataSourceVoList.get(7).get(0));
+			dataSourceVo.setEight(dataSourceVoList.get(8).get(0));
+			dataSourceVo.setNine(dataSourceVoList.get(9).get(0));
+
 			return ApiResult.success(dataSourceVo);
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
