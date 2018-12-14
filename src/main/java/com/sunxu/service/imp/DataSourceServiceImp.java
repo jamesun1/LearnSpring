@@ -14,10 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.sunxu.dao.DataSourceMapper;
 import com.sunxu.dao.DataSourceProMapper;
 import com.sunxu.dao.HistoryInfoMapper;
 import com.sunxu.entity.DataSource;
+import com.sunxu.entity.HistoryInfo;
+import com.sunxu.entity.PageBean;
 import com.sunxu.service.DataSourceService;
 import com.sunxu.utils.ApiResult;
 import com.sunxu.utils.GetHttpUtil;
@@ -31,13 +34,15 @@ public class DataSourceServiceImp implements DataSourceService {
 
 	@Autowired
 	private DataSourceMapper dataSourceMapper;
+	@Autowired
+	private HistoryInfoMapper historyInfoMapper;
 
 	@Override
 	public void getDataSource(DataSourceProMapper dataSourceProMapper, DataSourceMapper dataSourceMapper,
 			HistoryInfoMapper historyInfoMapper) throws LogicException {
 		try {
 			GetHttpUtil getHttpUtil = new GetHttpUtil();
-			getHttpUtil.getHttpUtil(dataSourceProMapper, dataSourceMapper,historyInfoMapper);
+			getHttpUtil.getHttpUtil(dataSourceProMapper, dataSourceMapper, historyInfoMapper);
 			logger.info("调用成功");
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
@@ -110,7 +115,25 @@ public class DataSourceServiceImp implements DataSourceService {
 			dataSourceVo.setFourMax(fourMax);
 			dataSourceVo.setFiveMax(fiveMax);
 			dataSourceVo.setSixMax(sixMax);
+
+			String lastNum = dataSourceMapper.selectLastNum();
+			dataSourceVo.setLastNum(lastNum);
 			return ApiResult.success(dataSourceVo);
+		} catch (Exception e) {
+			logger.error("错误" + e.getMessage().toString());
+			throw new LogicException("查询数据报错");
+		}
+	}
+
+	@Override
+	public ApiResult getDataSourceByType(PageBean<String> params) throws LogicException {
+		try {
+			PageHelper.startPage(params.getStartIndex(), params.getPageSize());
+			String type = params.getParmas();
+			List<HistoryInfo> historyInfoList = historyInfoMapper.getDataSourceByType(type);
+			Integer count = historyInfoMapper.selectCountByType(type);
+			return ApiResult.success(
+					new PageBean<HistoryInfo>(params.getStartIndex(), params.getPageSize(), count, historyInfoList));
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
 			throw new LogicException("查询数据报错");

@@ -53,6 +53,15 @@ public class DataSourceVo extends DataSource {
 
 	private List<DataSourceVo> sixMax;
 
+	private String lastNum;
+
+	public String getLastNum() {
+		return lastNum;
+	}
+
+	public void setLastNum(String lastNum) {
+		this.lastNum = lastNum;
+	}
 
 	public DataSourceVo() {
 		super();

@@ -23,4 +23,6 @@ public interface DataSourceMapper extends Mapper<DataSource> {
 	DataSourceVo getCurrentNotContinuousDataSource(@Param("issue") String issueNum, @Param("str") String str);
 
 	List<List<String>> getAllCurrentNotCon(@Param("issue")String issueNum);
+
+	String selectLastNum();
 }

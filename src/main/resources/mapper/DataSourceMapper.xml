@@ -42,9 +42,18 @@
 		getAllCurrentNotCon(${issue})
 	</select>
 	<resultMap type="java.lang.String" id="temp">
-		<!-- <result column="number" property="number" javaType="java.lang.String"
+		<!-- <result column="number" property="number" javaType="java.lang.String" 
 			jdbcType="VARCHAR" /> -->
 		<result column="times" property="times" javaType="java.lang.String"
 			jdbcType="VARCHAR" />
 	</resultMap>
+	<select id="selectLastNum" resultType="java.lang.String">
+		SELECT
+		original_code
+		FROM
+		data_source_pro
+
+		ORDER BY `timestamp` desc
+		LIMIT 1
+	</select>
 </mapper>
