@@ -44,7 +44,57 @@ public class DataSourceVo extends DataSource {
 	private String eight;
 
 	private String nine;
-	
+
+	private String num;
+
+	private List<DataSourceVo> fourMax;
+
+	private List<DataSourceVo> fiveMax;
+
+	private List<DataSourceVo> sixMax;
+
+
+	public DataSourceVo() {
+		super();
+	}
+
+	public DataSourceVo(String num, String times) {
+		this.num = num;
+		this.times = times;
+	}
+
+	public List<DataSourceVo> getFourMax() {
+		return fourMax;
+	}
+
+	public void setFourMax(List<DataSourceVo> fourMax) {
+		this.fourMax = fourMax;
+	}
+
+	public List<DataSourceVo> getFiveMax() {
+		return fiveMax;
+	}
+
+	public void setFiveMax(List<DataSourceVo> fiveMax) {
+		this.fiveMax = fiveMax;
+	}
+
+	public List<DataSourceVo> getSixMax() {
+		return sixMax;
+	}
+
+	public void setSixMax(List<DataSourceVo> sixMax) {
+		this.sixMax = sixMax;
+	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
 	public String getZero() {
 		return zero;
 	}
