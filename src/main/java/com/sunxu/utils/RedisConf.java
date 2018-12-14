@@ -19,7 +19,7 @@ public class RedisConf {
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		// 设置最大10个连接
 		jedisPoolConfig.setMaxTotal(10);
-		JedisPool pool = new JedisPool(jedisPoolConfig, "119.29.108.164", 6379, 2000, "123456");
+		JedisPool pool = new JedisPool(jedisPoolConfig, "119.29.108.164", 6379, 2000, "sunxu1!");
 		logger.info("redis注入成功");
 		return pool;
 	}

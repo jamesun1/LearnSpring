@@ -118,6 +118,22 @@ public class DataSourceServiceImp implements DataSourceService {
 
 			String lastNum = dataSourceMapper.selectLastNum();
 			dataSourceVo.setLastNum(lastNum);
+			
+			List<Double> fourProbability = dataSourceMapper.selectProbability("1");
+			dataSourceVo.setFourProbability(Utils.formatDouble(fourProbability.get(0)*100));
+			dataSourceVo.setFourMaxContinue(fourProbability.get(1));
+			dataSourceVo.setFourMinContinue(fourProbability.get(2));
+			
+			List<Double> fiveProbability = dataSourceMapper.selectProbability("2");
+			dataSourceVo.setFiveProbability(Utils.formatDouble(fiveProbability.get(0)*100));
+			dataSourceVo.setFiveMaxContinue(fiveProbability.get(1));
+			dataSourceVo.setFiveMinContinue(fiveProbability.get(2));
+			
+			List<Double> sixProbability = dataSourceMapper.selectProbability("3");
+			dataSourceVo.setSixProbability(Utils.formatDouble(sixProbability.get(0)*100));
+			dataSourceVo.setSixMaxContinue(sixProbability.get(1));
+			dataSourceVo.setSixMinContinue(sixProbability.get(2));
+			
 			return ApiResult.success(dataSourceVo);
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());

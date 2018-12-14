@@ -25,4 +25,6 @@ public interface DataSourceMapper extends Mapper<DataSource> {
 	List<List<String>> getAllCurrentNotCon(@Param("issue")String issueNum);
 
 	String selectLastNum();
+
+	List<Double> selectProbability(@Param("type")String string);
 }

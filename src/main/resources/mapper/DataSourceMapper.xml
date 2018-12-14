@@ -14,38 +14,44 @@
 			)
 		</foreach>
 	</insert>
-	<select id="getDataSource" resultType="com.sunxu.entity.DataSource">
+	<select id="getDataSource"
+		resultType="com.sunxu.entity.DataSource">
 		SELECT
 		result.issue,
 		result.`first`
 		FROM
-		( SELECT * FROM data_source_pro ORDER BY `timestamp`
+		( SELECT * FROM
+		data_source_pro ORDER BY `timestamp`
 		DESC LIMIT 0,
 		${issue} ) result
 		ORDER BY
 		result.issue
 	</select>
-	<select id="getContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
+	<select id="getContinuousDataSource"
+		resultType="com.sunxu.vo.DataSourceVo">
 		call
 		getContinuousDataSource(#{str},${issue})
 	</select>
-	<select id="getNotContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
+	<select id="getNotContinuousDataSource"
+		resultType="com.sunxu.vo.DataSourceVo">
 		call
 		getNotContinuousDataSource(#{str},${issue})
 	</select>
-	<select id="getCurrentNotContinuousDataSource" resultType="com.sunxu.vo.DataSourceVo">
+	<select id="getCurrentNotContinuousDataSource"
+		resultType="com.sunxu.vo.DataSourceVo">
 		call
 		getCurrentNotContinuousDataSource(#{str},${issue})
 	</select>
-	<select id="getAllCurrentNotCon" resultMap="temp,temp,temp,temp,temp,temp,temp,temp,temp,temp">
+	<select id="getAllCurrentNotCon"
+		resultMap="temp,temp,temp,temp,temp,temp,temp,temp,temp,temp">
 		call
 		getAllCurrentNotCon(${issue})
 	</select>
 	<resultMap type="java.lang.String" id="temp">
 		<!-- <result column="number" property="number" javaType="java.lang.String" 
 			jdbcType="VARCHAR" /> -->
-		<result column="times" property="times" javaType="java.lang.String"
-			jdbcType="VARCHAR" />
+		<result column="times" property="times"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectLastNum" resultType="java.lang.String">
 		SELECT
@@ -55,5 +61,18 @@
 
 		ORDER BY `timestamp` desc
 		LIMIT 1
+	</select>
+	<select id="selectProbability" resultType="java.lang.Double">
+
+		SELECT(select count(1)
+		from history_info where type = #{type} and win = "0")/(select
+		count(1) from
+		history_info where type = #{type})
+		UNION
+		select count(1) from history_info
+		where type = #{type} and win = "0"
+		UNION
+		select count(1) from history_info
+		where type = #{type} and win = "1"
 	</select>
 </mapper>

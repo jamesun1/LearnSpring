@@ -55,6 +55,96 @@ public class DataSourceVo extends DataSource {
 
 	private String lastNum;
 
+	private double fourProbability;
+
+	private double fiveProbability;
+
+	private double sixProbability;
+
+	private double fourMaxContinue;
+
+	private double fiveMaxContinue;
+
+	private double sixMaxContinue;
+
+	private double fourMinContinue;
+
+	private double fiveMinContinue;
+
+	private double sixMinContinue;
+
+	public double getFourMaxContinue() {
+		return fourMaxContinue;
+	}
+
+	public void setFourMaxContinue(double fourMaxContinue) {
+		this.fourMaxContinue = fourMaxContinue;
+	}
+
+	public double getFiveMaxContinue() {
+		return fiveMaxContinue;
+	}
+
+	public void setFiveMaxContinue(double fiveMaxContinue) {
+		this.fiveMaxContinue = fiveMaxContinue;
+	}
+
+	public double getSixMaxContinue() {
+		return sixMaxContinue;
+	}
+
+	public void setSixMaxContinue(double sixMaxContinue) {
+		this.sixMaxContinue = sixMaxContinue;
+	}
+
+	public double getFourMinContinue() {
+		return fourMinContinue;
+	}
+
+	public void setFourMinContinue(double fourMinContinue) {
+		this.fourMinContinue = fourMinContinue;
+	}
+
+	public double getFiveMinContinue() {
+		return fiveMinContinue;
+	}
+
+	public void setFiveMinContinue(double fiveMinContinue) {
+		this.fiveMinContinue = fiveMinContinue;
+	}
+
+	public double getSixMinContinue() {
+		return sixMinContinue;
+	}
+
+	public void setSixMinContinue(double sixMinContinue) {
+		this.sixMinContinue = sixMinContinue;
+	}
+
+	public double getFourProbability() {
+		return fourProbability;
+	}
+
+	public void setFourProbability(double fourProbability) {
+		this.fourProbability = fourProbability;
+	}
+
+	public double getFiveProbability() {
+		return fiveProbability;
+	}
+
+	public void setFiveProbability(double fiveProbability) {
+		this.fiveProbability = fiveProbability;
+	}
+
+	public double getSixProbability() {
+		return sixProbability;
+	}
+
+	public void setSixProbability(double sixProbability) {
+		this.sixProbability = sixProbability;
+	}
+
 	public String getLastNum() {
 		return lastNum;
 	}
