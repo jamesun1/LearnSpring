@@ -26,12 +26,12 @@ public class GetDataSourceScheduled {
 	@Autowired
 	private HistoryInfoMapper historyInfoMapper;
 
-	// @Scheduled(cron = "0 0/1 * * * ?")
-	// public void getDataSourceScheduled() {
-	// try {
-	// dataSourceService.getDataSource(dataSourceProMapper,dataSourceMapper,historyInfoMapper);
-	// } catch (LogicException e) {
-	// e.printStackTrace();
-	// }
-	// }
+	@Scheduled(cron = "0 0/1 * * * ?")
+	public void getDataSourceScheduled() {
+		try {
+			dataSourceService.getDataSource(dataSourceProMapper, dataSourceMapper, historyInfoMapper);
+		} catch (LogicException e) {
+			e.printStackTrace();
+		}
+	}
 }
