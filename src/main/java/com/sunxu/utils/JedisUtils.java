@@ -1,10 +1,14 @@
 package com.sunxu.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class JedisUtils {
 
+	static Logger logger = LoggerFactory.getLogger(JedisUtils.class);
 	private static JedisPool pool = SpringContextUtil.getBean(JedisPool.class);
 
 	private static Jedis jedis;
@@ -20,9 +24,15 @@ public class JedisUtils {
 	 * @param value
 	 */
 	public static void append(byte[] key, Object value) {
-		byte[] b = SerializeUtil.serialize(value);
-		jedis = getJedis();
-		jedis.append(key, b);
+		try {
+			byte[] b = SerializeUtil.serialize(value);
+			jedis = getJedis();
+			jedis.append(key, b);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 	}
 
 	/**
@@ -32,19 +42,37 @@ public class JedisUtils {
 	 * @param value
 	 */
 	public static void append(String key, String value) {
-		jedis = getJedis();
-		jedis.append(key, value);
+		try {
+			jedis = getJedis();
+			jedis.append(key, value);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 	}
 
 	public static void set(String key, String value) {
-		jedis = getJedis();
-		jedis.set(key, value);
+		try {
+			jedis = getJedis();
+			jedis.set(key, value);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 	}
 
 	public static void set(String key, String value, int timeOut) {
-		jedis = getJedis();
-		jedis.set(key, value);
-		jedis.expire(key, timeOut);
+		try {
+			jedis = getJedis();
+			jedis.set(key, value);
+			jedis.expire(key, timeOut);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 	}
 
 	/**
@@ -54,8 +82,16 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static String getValue(String key) {
-		jedis = getJedis();
-		String value = jedis.get(key);
+		String value = null;
+		try {
+			jedis = getJedis();
+			value = jedis.get(key);
+			return value;
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 		return value;
 	}
 
@@ -66,9 +102,17 @@ public class JedisUtils {
 	 * @return
 	 */
 	public static Object getValue(byte[] key) {
-		jedis = getJedis();
-		byte[] b = jedis.get(key);
-		Object o = SerializeUtil.unserialize(b);
+		Object o = null;
+		try {
+			jedis = getJedis();
+			byte[] b = jedis.get(key);
+			o = SerializeUtil.unserialize(b);
+			return o;
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 		return o;
 	}
 
@@ -78,8 +122,14 @@ public class JedisUtils {
 	 * @param key
 	 */
 	public static void remove(String key) {
-		jedis = getJedis();
-		jedis.del(key);
+		try {
+			jedis = getJedis();
+			jedis.del(key);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
 	}
 
 	/**
@@ -88,7 +138,31 @@ public class JedisUtils {
 	 * @param key
 	 */
 	public static void remove(byte[] key) {
-		jedis = getJedis();
-		jedis.del(key);
+		try {
+			jedis = getJedis();
+			jedis.del(key);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
+	}
+
+	public static boolean isExit(String key) {
+		try {
+			return jedis.exists(key);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		} finally {
+			returnResource(jedis);
+		}
+		return false;
+	}
+
+	@SuppressWarnings("deprecation")
+	public synchronized static void returnResource(Jedis jedis) {
+		if (jedis != null) {
+			pool.returnResource(jedis);
+		}
 	}
 }

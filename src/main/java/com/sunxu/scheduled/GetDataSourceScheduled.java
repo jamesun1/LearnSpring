@@ -23,20 +23,20 @@ public class GetDataSourceScheduled {
 	@Autowired
 	private DataSourceProMapper dataSourceProMapper;
 
-	@Scheduled(cron = "0 0/1 * * * ?")
-	public void getDataSourceScheduled() {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				try {
-					dataSourceService.getDataSource(dataSourceProMapper);
-				} catch (LogicException e) {
-					log.warn(e.toString());
-					e.printStackTrace();
-				}
-			}
-		}, 300);
-	}
+	// @Scheduled(cron = "0 0/1 * * * ?")
+	// public void getDataSourceScheduled() {
+	// Timer timer = new Timer();
+	// timer.schedule(new TimerTask() {
+	//
+	// @Override
+	// public void run() {
+	// try {
+	// dataSourceService.getDataSource(dataSourceProMapper);
+	// } catch (LogicException e) {
+	// log.warn(e.toString());
+	// e.printStackTrace();
+	// }
+	// }
+	// }, 300);
+	// }
 }
