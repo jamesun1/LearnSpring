@@ -80,6 +80,7 @@ public class GetHttpUtil {
 				dataSourcePro.setThird(resultList[2]);
 				dataSourcePro.setForth(resultList[1]);
 				dataSourcePro.setFivth(resultList[0]);
+				dataSourcePro.setCreateDate(new Date());
 				dataSourcePro.setTimestamp(DataUtils.getInstance().TimestampToDate(jsonObject.getInteger("timestamp")));
 				dataSourceProMapper.insert(dataSourcePro);
 

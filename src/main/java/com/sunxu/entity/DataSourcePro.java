@@ -30,6 +30,16 @@ public class DataSourcePro implements Serializable {
 	private String fivth;
 
 	private Date timestamp;
+	
+	private Date createDate;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	@Transient
 	private String[] splitCode;
