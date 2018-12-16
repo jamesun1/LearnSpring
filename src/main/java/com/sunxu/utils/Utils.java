@@ -73,7 +73,7 @@ public class Utils {
 
 	public static double formatDouble(double d) {
 		// 新方法，如果不需要四舍五入，可以使用RoundingMode.DOWN
-		BigDecimal bg = new BigDecimal(d).setScale(3, RoundingMode.UP);
+		BigDecimal bg = new BigDecimal(d).setScale(2, RoundingMode.UP);
 		return bg.doubleValue();
 	}
 }
