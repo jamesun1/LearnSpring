@@ -62,8 +62,8 @@ public class DataSourceServiceImp implements DataSourceService {
 			String[] number = dataSourceVo.getNumber();
 			// 传入的期数 -- 查询多少期
 			String issueNum = dataSourceVo.getIssue();
-			// 数据库查询
 			List<DataSource> dataSourceList = dataSourceMapper.getDataSource(issueNum);
+			// 数据库查询
 			List<List<String>> dataList = new ArrayList<>();
 
 			// 整理数据格式
@@ -109,7 +109,7 @@ public class DataSourceServiceImp implements DataSourceService {
 			// 查询十个数的当前连挂
 			List<List<String>> dataSourceVoList = dataSourceMapper.getAllCurrentNotCon(issueNum);
 			// 初始化数据
-			dataSourceVo = this.inItDataByCurrentNotCon(dataSourceVoList);
+			this.inItDataByCurrentNotCon(dataSourceVoList, dataSourceVo);
 
 			// 根据当前遗漏排序
 			List<DataSourceVo> dtList = Utils.listSort(dataSourceVo);
@@ -157,20 +157,19 @@ public class DataSourceServiceImp implements DataSourceService {
 		}
 	}
 
-	private DataSourceVo inItDataByCurrentNotCon(List<List<String>> dataSourceVoList) throws LogicException {
+	private void inItDataByCurrentNotCon(List<List<String>> dataSourceVoList, DataSourceVo dataSourceVo)
+			throws LogicException {
 		try {
-			DataSourceVo dataSourceVo = new DataSourceVo();
-			dataSourceVo.setZero(dataSourceVoList.get(0) == null ? "0" : dataSourceVoList.get(0).get(0));
-			dataSourceVo.setOne(dataSourceVoList.get(1) == null ? "0" : dataSourceVoList.get(1).get(0));
-			dataSourceVo.setTwo(dataSourceVoList.get(2) == null ? "0" : dataSourceVoList.get(2).get(0));
-			dataSourceVo.setThree(dataSourceVoList.get(3) == null ? "0" : dataSourceVoList.get(3).get(0));
-			dataSourceVo.setFour(dataSourceVoList.get(4) == null ? "0" : dataSourceVoList.get(4).get(0));
-			dataSourceVo.setFive(dataSourceVoList.get(5) == null ? "0" : dataSourceVoList.get(5).get(0));
-			dataSourceVo.setSix(dataSourceVoList.get(6) == null ? "0" : dataSourceVoList.get(6).get(0));
-			dataSourceVo.setSeven(dataSourceVoList.get(7) == null ? "0" : dataSourceVoList.get(7).get(0));
-			dataSourceVo.setEight(dataSourceVoList.get(8) == null ? "0" : dataSourceVoList.get(8).get(0));
-			dataSourceVo.setNine(dataSourceVoList.get(9) == null ? "0" : dataSourceVoList.get(9).get(0));
-			return dataSourceVo;
+			dataSourceVo.setZero(dataSourceVoList.get(0).size() == 0 ? "0" : dataSourceVoList.get(0).get(0));
+			dataSourceVo.setOne(dataSourceVoList.get(1).size() == 0 ? "0" : dataSourceVoList.get(1).get(0));
+			dataSourceVo.setTwo(dataSourceVoList.get(2).size() == 0 ? "0" : dataSourceVoList.get(2).get(0));
+			dataSourceVo.setThree(dataSourceVoList.get(3).size() == 0 ? "0" : dataSourceVoList.get(3).get(0));
+			dataSourceVo.setFour(dataSourceVoList.get(4).size() == 0 ? "0" : dataSourceVoList.get(4).get(0));
+			dataSourceVo.setFive(dataSourceVoList.get(5).size() == 0 ? "0" : dataSourceVoList.get(5).get(0));
+			dataSourceVo.setSix(dataSourceVoList.get(6).size() == 0 ? "0" : dataSourceVoList.get(6).get(0));
+			dataSourceVo.setSeven(dataSourceVoList.get(7).size() == 0 ? "0" : dataSourceVoList.get(7).get(0));
+			dataSourceVo.setEight(dataSourceVoList.get(8).size() == 0 ? "0" : dataSourceVoList.get(8).get(0));
+			dataSourceVo.setNine(dataSourceVoList.get(9).size() == 0 ? "0" : dataSourceVoList.get(9).get(0));
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
 			throw new LogicException("查询数据报错");

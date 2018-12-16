@@ -1,5 +1,8 @@
 package com.sunxu.scheduled;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +30,18 @@ public class GetDataSourceScheduled {
 	private HistoryInfoMapper historyInfoMapper;
 
 	@Scheduled(cron = "0 0/1 * * * ?")
-	public void getDataSourceScheduled() {
-		try {
-			dataSourceService.getDataSource(dataSourceProMapper, dataSourceMapper, historyInfoMapper);
-		} catch (LogicException e) {
-			e.printStackTrace();
-		}
+	public void getDataSourceScheduled() throws LogicException {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				try {
+					dataSourceService.getDataSource(dataSourceProMapper, dataSourceMapper, historyInfoMapper);
+				} catch (LogicException e) {
+					e.printStackTrace();
+				}
+			}
+		}, 3*1000);
 	}
 }
