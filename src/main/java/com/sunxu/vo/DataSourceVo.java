@@ -72,6 +72,26 @@ public class DataSourceVo extends DataSource {
 	private double fiveMinContinue;
 
 	private double sixMinContinue;
+	
+	private List<StatisticsVo> winList;
+	
+	private List<StatisticsVo> lossList;
+
+	public List<StatisticsVo> getWinList() {
+		return winList;
+	}
+
+	public void setWinList(List<StatisticsVo> winList) {
+		this.winList = winList;
+	}
+
+	public List<StatisticsVo> getLossList() {
+		return lossList;
+	}
+
+	public void setLossList(List<StatisticsVo> lossList) {
+		this.lossList = lossList;
+	}
 
 	public double getFourMaxContinue() {
 		return fourMaxContinue;

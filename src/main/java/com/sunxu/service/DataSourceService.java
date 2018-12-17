@@ -15,4 +15,6 @@ public interface DataSourceService {
 	ApiResult getDataSource(DataSourceVo dataSourceVo) throws LogicException;
 
 	ApiResult getDataSourceByType(PageBean<String> params) throws LogicException;
+
+	ApiResult getDataCategary(String type) throws LogicException;
 }

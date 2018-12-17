@@ -17,4 +17,8 @@
 		WHERE
 		type = #{type}
 	</select>
+	<select id="getDataCategary" resultType="com.sunxu.entity.HistoryInfo">
+		select win_num,win from history_info where type = "2" ORDER BY create_time
+		desc
+	</select>
 </mapper>

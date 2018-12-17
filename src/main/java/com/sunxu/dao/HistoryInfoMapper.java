@@ -13,4 +13,6 @@ public interface HistoryInfoMapper extends Mapper<HistoryInfo> {
 	List<HistoryInfo> getDataSourceByType(@Param("type") String type);
 
 	Integer selectCountByType(@Param("type") String type);
+
+	List<HistoryInfo> getDataCategary(@Param("type") String type);
 }

@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,7 @@ import com.sunxu.utils.GetHttpUtil;
 import com.sunxu.utils.LogicException;
 import com.sunxu.utils.Utils;
 import com.sunxu.vo.DataSourceVo;
+import com.sunxu.vo.StatisticsVo;
 
 @Service
 public class DataSourceServiceImp implements DataSourceService {
@@ -185,6 +188,72 @@ public class DataSourceServiceImp implements DataSourceService {
 			Integer count = historyInfoMapper.selectCountByType(type);
 			return ApiResult.success(
 					new PageBean<HistoryInfo>(params.getStartIndex(), params.getPageSize(), count, historyInfoList));
+		} catch (Exception e) {
+			logger.error("错误" + e.getMessage().toString());
+			throw new LogicException("查询数据报错");
+		}
+	}
+
+	@Override
+	public ApiResult getDataCategary(String type) throws LogicException {
+		try {
+			DataSourceVo dataSourceVo = new DataSourceVo();
+
+			List<HistoryInfo> historyInfoList = historyInfoMapper.getDataCategary(type);
+			List<StatisticsVo> winList = new ArrayList<StatisticsVo>();
+			List<StatisticsVo> lossList = new ArrayList<StatisticsVo>();
+
+			int maxWinTimes = 0;
+			int maxLossTimes = 0;
+
+			for (int i = 0; i < historyInfoList.size(); i++) {
+				if (i + 1 == historyInfoList.size()) {
+					if (maxWinTimes > 0) {
+						StatisticsVo statisticsVo = new StatisticsVo();
+						statisticsVo.setTimes(maxWinTimes);
+						statisticsVo.setWin("0");
+						winList.add(statisticsVo);
+					}
+					if (maxLossTimes > 0) {
+						StatisticsVo statisticsVo = new StatisticsVo();
+						statisticsVo.setTimes(maxLossTimes);
+						statisticsVo.setWin("1");
+						winList.add(statisticsVo);
+					}
+
+					continue;
+				}
+
+				if (historyInfoList.get(i).getWin().equals("0") && historyInfoList.get(i + 1).getWin().equals("0")) {
+					maxWinTimes++;
+				} else {
+					StatisticsVo statisticsVo = new StatisticsVo();
+					statisticsVo.setTimes(maxWinTimes);
+					statisticsVo.setWin("0");
+					winList.add(statisticsVo);
+					maxWinTimes = 0;
+				}
+
+				if (historyInfoList.get(i).getWin().equals("1") && historyInfoList.get(i + 1).getWin().equals("1")) {
+					maxLossTimes++;
+				} else {
+					StatisticsVo statisticsVo = new StatisticsVo();
+					statisticsVo.setTimes(maxLossTimes);
+					statisticsVo.setWin("1");
+					lossList.add(statisticsVo);
+					maxLossTimes = 0;
+				}
+			}
+
+			winList = winList.stream().filter(item -> item.getTimes() > 0).collect(Collectors.toList());
+			lossList = lossList.stream().filter(item -> item.getTimes() > 0).collect(Collectors.toList());
+
+			winList = new ArrayList<>(new HashSet<>(winList));
+			lossList = new ArrayList<>(new HashSet<>(lossList));
+			
+			dataSourceVo.setWinList(winList);
+			dataSourceVo.setLossList(lossList);
+			return ApiResult.success(dataSourceVo);
 		} catch (Exception e) {
 			logger.error("错误" + e.getMessage().toString());
 			throw new LogicException("查询数据报错");

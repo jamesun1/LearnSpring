@@ -41,4 +41,15 @@ public class DataSourceController {
 			return ApiResult.fail(e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "getDataCategary", method = { RequestMethod.GET })
+	public ApiResult getDataCategary(String type) {
+		try {
+			return dataSourceService.getDataCategary(type);
+		} catch (LogicException e) {
+			return ApiResult.fail(e.getMessage());
+		} catch (Exception e) {
+			return ApiResult.fail(e.getMessage());
+		}
+	}
 }
