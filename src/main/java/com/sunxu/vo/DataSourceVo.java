@@ -15,6 +15,8 @@ public class DataSourceVo extends DataSource {
 
 	private List<List<String>> dataList;
 
+	private List<List<Long>> dataListTwo;
+
 	private Double winningRate;
 
 	private String times;
@@ -72,10 +74,18 @@ public class DataSourceVo extends DataSource {
 	private double fiveMinContinue;
 
 	private double sixMinContinue;
-	
+
 	private List<StatisticsVo> winList;
-	
+
 	private List<StatisticsVo> lossList;
+
+	public List<List<Long>> getDataListTwo() {
+		return dataListTwo;
+	}
+
+	public void setDataListTwo(List<List<Long>> dataListTwo) {
+		this.dataListTwo = dataListTwo;
+	}
 
 	public List<StatisticsVo> getWinList() {
 		return winList;

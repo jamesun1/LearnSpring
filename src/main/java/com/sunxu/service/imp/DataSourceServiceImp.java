@@ -2,11 +2,14 @@ package com.sunxu.service.imp;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,37 +64,45 @@ public class DataSourceServiceImp implements DataSourceService {
 			int count = 0;
 			// 赢的数量
 			double win = 0;
+
 			// 传入的号码为数组
 			String[] number = dataSourceVo.getNumber();
 			// 传入的期数 -- 查询多少期
 			String issueNum = dataSourceVo.getIssue();
 			List<DataSource> dataSourceList = dataSourceMapper.getDataSource(issueNum);
 			// 数据库查询
-			List<List<String>> dataList = new ArrayList<>();
+			List<List<Long>> dataListTwo = new ArrayList<>();
 
 			// 整理数据格式
 			for (DataSource item : dataSourceList) {
-				List<String> data = new ArrayList<>();
-				String issue = item.getIssue();
+				List<Long> data = new ArrayList<>();
+				// String issue = item.getIssue();
 				String first = item.getFirst();
+				// data.add(Long.valueOf(issue.replace("-", "")));
+				data.add(item.getTimestamp().getTime());
+				data.add(Long.valueOf(count));
+
 				if (Utils.findStr(number, first)) {
 					count++;
 					win++;
 				} else {
 					count--;
 				}
-				data.add(issue);
-				for (int i = 0; i < 4; i++) {
-					data.add(String.valueOf(count));
-				}
-				dataList.add(data);
+				// for (int i = 0; i < 4; i++) {
+				// data.add(String.valueOf(count));
+				// }
+				data.add(Long.valueOf(count));
+				data.add(data.get(1));
+				data.add(data.get(2));
+
+				dataListTwo.add(data);
 			}
 
 			// 计算胜率
 			double winningRate = Utils.formatDouble(win / Double.valueOf(dataSourceList.size()) * 100);
 
 			dataSourceVo.setWinningRate(winningRate);
-			dataSourceVo.setDataList(dataList);
+			dataSourceVo.setDataListTwo(dataListTwo);
 
 			// 把数组拆成字符串用，号隔开
 			String str = Utils.dataToString(number);
@@ -107,7 +118,7 @@ public class DataSourceServiceImp implements DataSourceService {
 
 			// 查询当前连挂
 			dsv = dataSourceMapper.getCurrentNotContinuousDataSource(issueNum, str);
-			dataSourceVo.setCurrentNoContinue(dsv.getTimes());
+			dataSourceVo.setCurrentNoContinue(dsv == null ? "0" : dsv.getTimes());
 
 			// 查询十个数的当前连挂
 			List<List<String>> dataSourceVoList = dataSourceMapper.getAllCurrentNotCon(issueNum);
@@ -250,7 +261,7 @@ public class DataSourceServiceImp implements DataSourceService {
 
 			winList = new ArrayList<>(new HashSet<>(winList));
 			lossList = new ArrayList<>(new HashSet<>(lossList));
-			
+
 			dataSourceVo.setWinList(winList);
 			dataSourceVo.setLossList(lossList);
 			return ApiResult.success(dataSourceVo);

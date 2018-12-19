@@ -29,19 +29,20 @@ public class GetDataSourceScheduled {
 	@Autowired
 	private HistoryInfoMapper historyInfoMapper;
 
-	@Scheduled(cron = "0 0/1 * * * ?")
-	public void getDataSourceScheduled() throws LogicException {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				try {
-					dataSourceService.getDataSource(dataSourceProMapper, dataSourceMapper, historyInfoMapper);
-				} catch (LogicException e) {
-					e.printStackTrace();
-				}
-			}
-		}, 3*1000);
-	}
+	// @Scheduled(cron = "0 0/1 * * * ?")
+	// public void getDataSourceScheduled() throws LogicException {
+	// Timer timer = new Timer();
+	// timer.schedule(new TimerTask() {
+	//
+	// @Override
+	// public void run() {
+	// try {
+	// dataSourceService.getDataSource(dataSourceProMapper, dataSourceMapper,
+	// historyInfoMapper);
+	// } catch (LogicException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// }, 3*1000);
+	// }
 }

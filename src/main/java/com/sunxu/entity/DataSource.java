@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "data_source")
 public class DataSource implements Serializable {
@@ -35,16 +36,27 @@ public class DataSource implements Serializable {
 	private Date currenttime;
 
 	private Date createtime;
-	
+
 	private String first;
-	
+
 	private String second;
-	
+
 	private String third;
-	
+
 	private String forth;
-	
+
 	private String fifth;
+
+	@Transient
+	private Date timestamp;
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	public String getFirst() {
 		return first;
