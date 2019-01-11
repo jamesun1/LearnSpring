@@ -14,7 +14,14 @@ public class HelloSender {
 
 	public void send(String data) {
 		String context = "hello----" + LocalDateTime.now();
-		System.out.println(data + "--send:" + context);
+		// System.out.println(data + "--send:" + context);
+		// 往名称为 hello 的queue中发送消息
+		this.amqpTemplate.convertAndSend("hello", context);
+	}
+
+	public void send(Object obj1, Object object2) {
+		String context = "hello----" + LocalDateTime.now();
+		// System.out.println(data + "--send:" + context);
 		// 往名称为 hello 的queue中发送消息
 		this.amqpTemplate.convertAndSend("hello", context);
 	}

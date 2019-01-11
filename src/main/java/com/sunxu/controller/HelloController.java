@@ -32,4 +32,10 @@ public class HelloController {
 		return name;
 	}
 
+	
+	@RequestMapping(value = "example", method = RequestMethod.GET)
+	public String example(String name) {
+		helloSender.send(name);
+		return name;
+	}
 }
